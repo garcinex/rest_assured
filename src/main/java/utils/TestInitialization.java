@@ -19,10 +19,13 @@ public class TestInitialization {
             try {
                 LOG.info("Test execution initialization");
 
-//                System.setProperty("isLocalRun", Boolean.toString(System.getProperty("user.dir").contains("C:\\Users")));
+                System.setProperty("isLocalRun", Boolean.toString(System.getProperty("user.dir").contains("C:\\Users")));
 
-                RestAssured.proxy("localhost", 3128);
-                RestAssured.useRelaxedHTTPSValidation();
+                if (System.getProperty("isLocalRun").equals("false")) {
+                    RestAssured.proxy("localhost", 3128);
+                    RestAssured.useRelaxedHTTPSValidation();
+                }
+
                 isInit = true;
             } catch (Exception e) {
                 e.printStackTrace();
