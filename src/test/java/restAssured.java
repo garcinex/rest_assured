@@ -1,18 +1,21 @@
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import io.restassured.http.ContentType;
-import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import utils.TestInitialization;
 
 import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
-
-import static org.hamcrest.core.IsEqual.equalTo;
 
 public class restAssured {
+
+    @BeforeClass
+    public static void init() {
+//        proxy("localhost", 3128);
+//        useRelaxedHTTPSValidation();
+        TestInitialization.init();
+    }
+
     String url = "http://demo.guru99.com/V4/sinkministatement.php?CUSTOMER_ID=68195&PASSWORD=1234!&Account_No=1";
 
 
