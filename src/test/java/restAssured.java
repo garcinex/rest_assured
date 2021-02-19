@@ -21,33 +21,25 @@ public class restAssured {
 
 //    @Test
 //    public void test_NumberOfCircuitsFor2017Season_ShouldBe20() {
-//        given().
-//                when().
-//                get("http://ergast.com/api/f1/2017/circuits.json").
-//                then().
-//                assertThat().statusCode(200).
-//                and().
-//                contentType(ContentType.JSON).
-//                and().
-//                header("Content-Length", equalTo("4551"));
-////                assertThat().body("MRData.CircuitTable.Circuits.circuitId", hasSize(20));
+//        given().when().get("http://ergast.com/api/f1/2017/circuits.json").
+//                then().assertThat().statusCode(200).
+//                and().contentType(ContentType.JSON).
+//                and().header("Content-Length", equalTo("4551"));
+//                assertThat().body("MRData.CircuitTable.Circuits.circuitId", hasSize(20));
 //    }
 
 //    @Test
 //    public void canGetLuke() {
 //        RestAssured.get("https://swapi.dev/api/people/1/?format=json").
 //                then().
-//                assertThat().
-//                body("name", equalTo("Luke Skywalker")).and().
+//                assertThat().body("name", equalTo("Luke Skywalker")).and().
 //                assertThat().statusCode(200);
 //    }
 //
 //    @Test
 //    public void canGetC3POandParseWithJsonPath() {
 //
-//        Response response = RestAssured.get(
-//                "https://swapi.dev/api/people/2/?format=json").
-//                andReturn();
+//        Response response = RestAssured.get("https://swapi.dev/api/people/2/?format=json").andReturn();
 //
 //        String json = response.getBody().asString();
 //        System.out.println(json);
@@ -59,23 +51,19 @@ public class restAssured {
 //    @Test
 //    public void canGetC3POandParseWithRestAssure() {
 //        RestAssured.get("https://swapi.dev/api/people/2/?format=json").
-//                then().
-//                assertThat().
-//                body("name", equalTo("C-3PO"));
+//                then().assertThat().body("name", equalTo("C-3PO"));
 //    }
 
     @Test
     public void getResponseBody() {
 //        RestAssured.given().
 //                get("http://demo.guru99.com/V4/sinkministatement.php?CUSTOMER_ID=68195&PASSWORD=1234!&Account_No=1").
-//                then().
-//                log().
-//                all();
+//                then().log().all();
         given().queryParam("CUSTOMER_ID", "68195")
                 .queryParam("PASSWORD", "1234!")
                 .queryParam("Account_No","1")
-                .when().get("http://demo.guru99.com/V4/sinkministatement.php").then().log()
-                .all();
+                .when().get("http://demo.guru99.com/V4/sinkministatement.php")
+                .then().log().all();
     }
 
     @Test
