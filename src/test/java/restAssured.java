@@ -11,8 +11,6 @@ import static io.restassured.RestAssured.*;
 
 public class restAssured {
 
-    private static String url_short;
-
     @BeforeClass
     public static void init() {
         TestInitialization.init();
@@ -58,13 +56,9 @@ public class restAssured {
 
     @Test
     public void getResponseBody() {
-//        RestAssured.given().
-//                get("http://demo.guru99.com/V4/sinkministatement.php?CUSTOMER_ID=68195&PASSWORD=1234!&Account_No=1").
-//                then().log().all();
         given().queryParam("CUSTOMER_ID", "68195")
                 .queryParam("PASSWORD", "1234!")
                 .queryParam("Account_No","1")
-//                .when().get(url_short)
                 .when().get()
                 .then().log().all();
     }
@@ -76,7 +70,6 @@ public class restAssured {
                 .queryParam("Account_No","1")
                 .when().get().statusCode();
         System.out.println("The response code is: " + statusCode);
-
 
         given().when().get(url).then().assertThat().statusCode(200);
     }
