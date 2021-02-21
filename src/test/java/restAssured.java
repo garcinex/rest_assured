@@ -1,6 +1,8 @@
+import io.restassured.RestAssured;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import utils.TestConfiguration;
 import utils.TestInitialization;
 
 import java.util.concurrent.TimeUnit;
@@ -9,15 +11,15 @@ import static io.restassured.RestAssured.*;
 
 public class restAssured {
 
+    private static String url_short;
+
     @BeforeClass
     public static void init() {
-//        proxy("localhost", 3128);
-//        useRelaxedHTTPSValidation();
         TestInitialization.init();
+        baseURI = TestConfiguration.getHost();
     }
 
     String url = "http://demo.guru99.com/V4/sinkministatement.php?CUSTOMER_ID=68195&PASSWORD=1234!&Account_No=1";
-
 
 //    @Test
 //    public void test_NumberOfCircuitsFor2017Season_ShouldBe20() {
@@ -62,7 +64,8 @@ public class restAssured {
         given().queryParam("CUSTOMER_ID", "68195")
                 .queryParam("PASSWORD", "1234!")
                 .queryParam("Account_No","1")
-                .when().get("http://demo.guru99.com/V4/sinkministatement.php")
+//                .when().get(url_short)
+                .when().get()
                 .then().log().all();
     }
 
@@ -71,7 +74,7 @@ public class restAssured {
         int statusCode = given().queryParam("CUSTOMER_ID", "68195")
                 .queryParam("PASSWORD", "1234!")
                 .queryParam("Account_No","1")
-                .when().get("http://demo.guru99.com/V4/sinkministatement.php").statusCode();
+                .when().get().statusCode();
         System.out.println("The response code is: " + statusCode);
 
 
@@ -83,7 +86,7 @@ public class restAssured {
         given().queryParam("CUSTOMER_ID", "68195")
                 .queryParam("PASSWORD", "1234!")
                 .queryParam("Account_No","1")
-                .when().get("http://demo.guru99.com/V4/sinkministatement.php")
+                .when().get()
                 .then().assertThat().statusCode(200);
     }
 
