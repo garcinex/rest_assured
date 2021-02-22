@@ -1,4 +1,3 @@
-import io.restassured.RestAssured;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -88,5 +87,10 @@ public class restAssured {
         long time = get(url).timeIn(TimeUnit.MILLISECONDS);
         System.out.println("The time taken to fetch the response " + time + " ms" );
         Assert.assertTrue(time < 1000);
+    }
+
+    @Test
+    public void checkService() {
+        Assert.assertEquals("Incorrect response code", get().statusCode(), 200);
     }
 }
