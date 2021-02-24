@@ -34,10 +34,10 @@ public class TestInitialization {
                 String env = TestConfiguration.getEnv();
                 TestConfiguration.readConfig(Paths.get(userDirProperty, "env_config", env + ".properties"));
 
-                RestAssured.filters(
-                        new RequestLoggingFilter(LogDetail.URI, true, System.out),
-                        new ResponseLoggingFilter()
-                );
+//                RestAssured.filters(
+//                        new RequestLoggingFilter(LogDetail.URI, true, System.out),
+//                        new ResponseLoggingFilter()
+//                );
 
                 isInit = true;
             } catch (Exception e) {
