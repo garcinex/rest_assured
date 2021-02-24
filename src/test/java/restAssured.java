@@ -61,8 +61,8 @@ public class restAssured {
         given().queryParam("CUSTOMER_ID", "68195")
                 .queryParam("PASSWORD", "1234!")
                 .queryParam("Account_No","1")
-                .when().get()
-                .then().log().all();
+                .when().get().then();
+//                .then().log().all();
     }
 
     @Test
