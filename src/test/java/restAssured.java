@@ -1,6 +1,8 @@
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import listener.TestListener;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 import utils.TestConfiguration;
 import utils.TestInitialization;
 
@@ -8,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import static io.restassured.RestAssured.*;
 
+@Listeners({TestListener.class})
 public class restAssured {
 
     @BeforeClass
@@ -58,8 +61,8 @@ public class restAssured {
         given().queryParam("CUSTOMER_ID", "68195")
                 .queryParam("PASSWORD", "1234!")
                 .queryParam("Account_No","1")
-                .when().get()
-                .then().log().all();
+                .when().get().then();
+//                .then().log().all();
     }
 
     @Test
@@ -91,6 +94,6 @@ public class restAssured {
 
     @Test
     public void checkService() {
-        Assert.assertEquals("Incorrect response code", get().statusCode(), 200);
+        Assert.assertEquals(get().statusCode(), 200, "Incorrect response code");
     }
 }

@@ -4,6 +4,8 @@ import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.nio.file.Paths;
 //import org.apache.log4j.Logger;
@@ -11,7 +13,8 @@ import java.nio.file.Paths;
 public class TestInitialization {
 
     private static boolean isInit;
-//    private static final org.apache.log4j.Logger LOG = Logger.getLogger(TestInitialization.class);
+//    private static final Logger LOG = LogManager.getLogger(TestInitialization.class);
+    private static final org.apache.log4j.Logger LOG = Logger.getLogger(TestInitialization.class);
 
     static {
         isInit = false;
@@ -34,10 +37,13 @@ public class TestInitialization {
                 String env = TestConfiguration.getEnv();
                 TestConfiguration.readConfig(Paths.get(userDirProperty, "env_config", env + ".properties"));
 
-                RestAssured.filters(
-                        new RequestLoggingFilter(LogDetail.URI, true, System.out),
-                        new ResponseLoggingFilter()
-                );
+//                RestAssured.filters(
+//                        new RequestLoggingFilter(LogDetail.URI, true, System.out),
+//                        new ResponseLoggingFilter()
+//                );
+
+                LOG.info("Test init Hello!");
+
 
                 isInit = true;
             } catch (Exception e) {
