@@ -4,17 +4,15 @@ import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.nio.file.Paths;
-//import org.apache.log4j.Logger;
 
 public class TestInitialization {
 
     private static boolean isInit;
-//    private static final Logger LOG = LogManager.getLogger(TestInitialization.class);
-    private static final org.apache.log4j.Logger LOG = Logger.getLogger(TestInitialization.class);
+    private static final Logger LOG = LogManager.getLogger(TestInitialization.class);
 
     static {
         isInit = false;
