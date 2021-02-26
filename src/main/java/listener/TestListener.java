@@ -9,7 +9,7 @@ import utils.TestInitialization;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestListener implements ITestListener, IExecutionListener {
+public class TestListener implements ITestListener {
 
     private static final Logger LOG = LogManager.getLogger(TestInitialization.class);
     private final List<String> passed = new ArrayList<>();
@@ -25,14 +25,13 @@ public class TestListener implements ITestListener, IExecutionListener {
     public void onFinish(ITestContext iTestContext) {
         LOG.info("ON FINISH");
         LOG.info(String.format("PASSED: %s, FAILED: %s", passed.size(), failed.size()));
-//        System.out.println(String.format("PASSED: %s, FAILED: %s", passed.size(), failed.size()));
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
         String testName = iTestResult.getTestClass().getName() + "." + iTestResult.getName();
         passed.add(testName);
-        LOG.info("SUCCESS!");
+        LOG.debug("SUCCESS!");
 //        System.out.println("SUCCESS! println");
     }
 
@@ -54,16 +53,6 @@ public class TestListener implements ITestListener, IExecutionListener {
 
     @Override
     public void onStart(ITestContext iTestContext) {
-
-    }
-
-    @Override
-    public void onExecutionStart() {
-
-    }
-
-    @Override
-    public void onExecutionFinish() {
 
     }
 }
