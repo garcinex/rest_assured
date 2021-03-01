@@ -18,7 +18,7 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestStart(ITestResult iTestResult) {
         String testName = iTestResult.getTestClass().getName() + "." + iTestResult.getName();
-        LOG.info(String.format(">Execute test %s", testName));
+        LOG.info(String.format(">>> Execute test %s <<<", testName));
     }
 
     @Override
@@ -31,8 +31,6 @@ public class TestListener implements ITestListener {
     public void onTestSuccess(ITestResult iTestResult) {
         String testName = iTestResult.getTestClass().getName() + "." + iTestResult.getName();
         passed.add(testName);
-        LOG.info("SUCCESS!");
-//        System.out.println("SUCCESS! println");
     }
 
     @Override
