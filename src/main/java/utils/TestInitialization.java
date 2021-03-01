@@ -1,9 +1,8 @@
 package utils;
 
 import io.restassured.RestAssured;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.internal.RestAssuredResponseImpl;
+import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,7 +20,7 @@ public class TestInitialization {
     public static synchronized void init() {
         if (!isInit) {
             try {
-//                LOG.info("Test execution initialization");
+                LOG.info("Test execution initialization");
                 String userDirProperty = System.getProperty("user.dir");
 
                 System.setProperty("isLocalRun", Boolean.toString(userDirProperty.contains("C:\\Users") && !userDirProperty.contains("gac8wz")));
@@ -35,13 +34,18 @@ public class TestInitialization {
                 String env = TestConfiguration.getEnv();
                 TestConfiguration.readConfig(Paths.get(userDirProperty, "env_config", env + ".properties"));
 
-//                RestAssured.filters(
-//                        new RequestLoggingFilter(LogDetail.URI, true, System.out),
-//                        new ResponseLoggingFilter()
-//                );
+                RestAssured.filters((request, response, filterContext) -> {
+                    String requestMsg = "--> Request " + request.getMethod() + " " + request.getURI();
 
-                LOG.info("Test init Hello!");
+                    Response next = filterContext.next(request, response);
+                    String responseBody = ((RestAssuredResponseImpl) next).getBody().asString();
+                    String responseMsg = "<-- Response " + next.getStatusCode() + " " + responseBody;
 
+                    LOG.info(requestMsg);
+                    LOG.info(responseMsg);
+
+                    return next;
+                });
 
                 isInit = true;
             } catch (Exception e) {

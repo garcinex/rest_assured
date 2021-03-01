@@ -31,7 +31,7 @@ public class TestListener implements ITestListener {
     public void onTestSuccess(ITestResult iTestResult) {
         String testName = iTestResult.getTestClass().getName() + "." + iTestResult.getName();
         passed.add(testName);
-        LOG.debug("SUCCESS!");
+        LOG.info("SUCCESS!");
 //        System.out.println("SUCCESS! println");
     }
 
