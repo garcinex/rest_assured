@@ -1,10 +1,10 @@
-import listener.TestListener;
+import utils.TestListener;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import utils.TestConfiguration;
-import utils.TestInitialization;
+
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +15,6 @@ public class restAssured {
 
     @BeforeClass
     public static void init() {
-        TestInitialization.init();
         baseURI = TestConfiguration.getHost();
     }
 

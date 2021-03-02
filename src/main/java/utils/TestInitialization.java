@@ -34,6 +34,9 @@ public class TestInitialization {
                 String env = TestConfiguration.getEnv();
                 TestConfiguration.readConfig(Paths.get(userDirProperty, "env_config", env + ".properties"));
 
+                TestReport.init();
+                TestReport testReport = new TestReport();
+
                 RestAssured.filters((request, response, filterContext) -> {
                     String requestMsg = "--> Request " + request.getMethod() + " " + request.getURI();
 
@@ -43,6 +46,8 @@ public class TestInitialization {
 
                     LOG.info(requestMsg);
                     LOG.info(responseMsg);
+                    testReport.log(requestMsg);
+                    testReport.log(responseMsg);
 
                     return next;
                 });

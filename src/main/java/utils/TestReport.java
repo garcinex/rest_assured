@@ -81,10 +81,8 @@ public class TestReport {
         extentReports.flush();
     }
 
-    public void closeThreasLocalCollections() {
+    public void closeThreadLocalCollections() {
         currentTest.remove();
         currentTestClass.remove();
     }
 }
-
-//https://eager-bhaskara-b08d56.netlify.app/cucumber06/
