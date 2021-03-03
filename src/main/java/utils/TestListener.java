@@ -43,18 +43,23 @@ public class TestListener implements ITestListener {
     public void onTestSuccess(ITestResult iTestResult) {
         String testName = iTestResult.getTestClass().getName() + "." + iTestResult.getName();
         passed.add(testName);
+        testReport.pass(testName);
     }
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         String testName = iTestResult.getTestClass().getName() + "." + iTestResult.getName();
+        String reason = iTestResult.getThrowable().getMessage().replace("\n", " ");
         failed.add(testName);
+        testReport.fail(testName, reason);
     }
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
         String testName = iTestResult.getTestClass().getName() + "." + iTestResult.getName();
+        String reason = iTestResult.getThrowable().getMessage().replace("\n", " ");
         skipped.add(testName);
+        testReport.skip(testName, reason);
     }
 
     @Override

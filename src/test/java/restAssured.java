@@ -81,7 +81,7 @@ public class restAssured {
                 .queryParam("PASSWORD", "1234!")
                 .queryParam("Account_No","1")
                 .when().get()
-                .then().assertThat().statusCode(200);
+                .then().assertThat().statusCode(202);
     }
 
     @Test
