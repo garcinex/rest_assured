@@ -1,6 +1,7 @@
 package utils;
 
 
+import annotiations.Xfail;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.*;
@@ -46,12 +47,27 @@ public class TestListener implements ITestListener {
         testReport.pass(testName);
     }
 
+    private boolean isXfail(ITestResult iTestResult) {
+        return iTestResult.getMethod().getConstructorOrMethod().getMethod().getDeclaredAnnotation(Xfail.class) != null;
+    }
+
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         String testName = iTestResult.getTestClass().getName() + "." + iTestResult.getName();
         String reason = iTestResult.getThrowable().getMessage().replace("\n", " ");
-        failed.add(testName);
-        testReport.fail(testName, reason);
+//        failed.add(testName);
+//        testReport.fail(testName, reason);
+        if (isXfail(iTestResult)) {
+            LOG.info("XFAIL: {}", testName);
+            testReport.skip(testName, reason);
+            iTestResult.setStatus(ITestResult.SKIP);
+            iTestResult.setThrowable(null);
+            iTestResult.getTestContext().getFailedTests().removeResult(iTestResult);
+            iTestResult.getTestContext().getSkippedTests().addResult(iTestResult, iTestResult.getMethod());
+        } else {
+            LOG.info("FAILED: {}", testName);
+            testReport.fail(testName, reason);
+        }
     }
 
     @Override

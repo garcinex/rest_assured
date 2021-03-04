@@ -85,4 +85,8 @@ public class TestReport {
         currentTest.remove();
         currentTestClass.remove();
     }
+
+//    public void addLabel(String label) {
+//        currentTest.
+//    }
 }
