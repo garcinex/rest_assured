@@ -3,6 +3,8 @@ package utils;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.ViewName;
 
@@ -18,6 +20,7 @@ public class TestReport {
     private static ThreadLocal<ExtentTest> currentTest;
     private static ThreadLocal<ExtentTest> currentTestClass;
     private static Set<String> testCases;
+    private static ExtentTest test;
 
     public static void init() {
         extentReports = new ExtentReports();
@@ -89,4 +92,14 @@ public class TestReport {
 //    public void addLabel(String label) {
 //        currentTest.
 //    }
+
+    public void logXfailTestWithIssue(String name, String issue) {
+        test.log(Status.WARNING, MarkupHelper.createLabel(name + "WARNING", ExtentColor.GREY));
+        extentReports.flush();
+    }
+
+    public void logXfailTest(String name) {
+        test.log(Status.WARNING, MarkupHelper.createLabel("WARNING", ExtentColor.GREY));
+        extentReports.flush();
+    }
 }

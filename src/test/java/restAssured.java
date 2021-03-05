@@ -76,6 +76,7 @@ public class restAssured {
         given().when().get(url).then().assertThat().statusCode(200);
     }
 
+    @Xfail
     @Test
     public void getResponseCodeMeWay() {
         given().queryParam("CUSTOMER_ID", "68195")
@@ -85,7 +86,6 @@ public class restAssured {
                 .then().assertThat().statusCode(404);
     }
 
-    @Xfail
     @Test
     public void getResponseTime() {
         long time = get(url).timeIn(TimeUnit.MILLISECONDS);

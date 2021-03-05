@@ -2,15 +2,18 @@ package utils;
 
 
 import annotiations.Xfail;
+import javafx.beans.property.ObjectProperty;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.*;
 import utils.TestInitialization;
 
+import java.lang.annotation.Annotation;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class TestListener implements ITestListener {
 
@@ -57,11 +60,22 @@ public class TestListener implements ITestListener {
         String reason = iTestResult.getThrowable().getMessage().replace("\n", " ");
 //        failed.add(testName);
 //        testReport.fail(testName, reason);
+        Optional<Object> xfailOptional = getAnnotationFromTestResult(iTestResult, Xfail.class);
+
         if (isXfail(iTestResult)) {
             LOG.info("XFAIL: {}", testName);
             testReport.skip(testName, reason);
             iTestResult.setStatus(ITestResult.SKIP);
             iTestResult.setThrowable(null);
+
+            if (xfailOptional.isPresent()) {
+                Xfail xfail = (Xfail) xfailOptional.get();
+                if (!"unassigned".equals(xfail.issue())) {
+                    testReport.logXfailTestWithIssue(testName, xfail.issue());
+                } else {
+//                    testReport.logXfailTest(testName);
+                }
+            }
             iTestResult.getTestContext().getFailedTests().removeResult(iTestResult);
             iTestResult.getTestContext().getSkippedTests().addResult(iTestResult, iTestResult.getMethod());
         } else {
@@ -80,7 +94,10 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
+    }
 
+    private Optional<Object> getAnnotationFromTestResult(ITestResult iTestResult, Class<? extends Annotation> clazz) {
+        return Optional.ofNullable(iTestResult.getMethod().getConstructorOrMethod().getMethod().getAnnotation(clazz));
     }
 
 }
